@@ -1,5 +1,9 @@
 package com.example.game_caro_client.controllers;
 
+import android.content.Context;
+import android.os.Handler;
+
+import com.example.game_caro_client.dialogs.GameDialog;
 import com.example.game_caro_client.hubs.Message;
 import com.example.game_caro_client.models.Player;
 import com.example.game_caro_client.screens.LoginScr;
@@ -8,6 +12,10 @@ public class GameController {
     public static GameController instance;
 
     public LoginScr loginScr;
+
+    public Context context;
+
+    Handler handler = new Handler();
 
     public static GameController gI() {
         if (instance == null) {
@@ -21,7 +29,15 @@ public class GameController {
             case 0:
                 System.out.println("login");
                 if (message.data.startsWith("0")) {
-                    System.out.println(message.data.substring(2));
+
+                    String messageLogin = message.data.substring(2);
+
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            GameDialog.gI().startOkDlg(context, messageLogin);
+                        }
+                    });
                 }
                 else {
                     message.data = message.data.substring(2);
@@ -39,4 +55,6 @@ public class GameController {
                 break;
         }
     }
+
+
 }
