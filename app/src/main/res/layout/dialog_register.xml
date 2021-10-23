@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_margin="20dp"
-    android:background="@drawable/background1">
+    android:screenOrientation="landscape"
+    android:background="@drawable/background">
 
     <TextView
         android:id="@+id/txt_reg"
@@ -64,7 +65,8 @@
         android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Đăng kí"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginVertical="10dp"/>
+        android:layout_marginVertical="10dp"
+        android:backgroundTint="#1877f2"
+        android:text="Đăng kí" />
 </LinearLayout>

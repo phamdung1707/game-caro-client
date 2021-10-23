@@ -52,7 +52,13 @@ public class LoginScr extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GameService.gI().login(txt_username.getText().toString(), txt_password.getText().toString());
+                if (txt_username.getText().toString().length() < 5 || txt_username.getText().toString().length() > 10) {
+                    startOkDlg("Tài khoản phải từ 5 đến 10 ký tự!");
+                } else if (txt_password.getText().toString().length() <= 0) {
+                    startOkDlg("Mật khẩu phải lớn hơn 5 ký tự!");
+                } else {
+                    GameService.gI().login(txt_username.getText().toString(), txt_password.getText().toString());
+                }
             }
         });
 
@@ -76,46 +82,8 @@ public class LoginScr extends AppCompatActivity {
         finish();
     }
 
-//    public void startOkDlg(String message) {
-//        GameDialog.gI().startOkDlg(context, message);
-//    }
-
-    public void Test(String message) {
-        startOkDlg(message);
-    }
-
     public void startOkDlg(String message) {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_ok);
-
-        Window window = dialog.getWindow();
-        if (window == null) {
-            return;
-        }
-
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        WindowManager.LayoutParams windowAttributes = window.getAttributes();
-
-        windowAttributes.gravity = Gravity.BOTTOM;
-        window.setAttributes(windowAttributes);
-
-        dialog.setCancelable(true);
-
-        TextView txt_message_dialog_ok = dialog.findViewById(R.id.txt_message_dialog_ok);
-        Button btn_dialog_ok = dialog.findViewById(R.id.btn_dialog_ok);
-
-        txt_message_dialog_ok.setText(message);
-
-        btn_dialog_ok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.cancel();
-            }
-        });
-
-        dialog.show();
+        GameDialog.gI().startOkDlg(context, message);
     }
+
 }

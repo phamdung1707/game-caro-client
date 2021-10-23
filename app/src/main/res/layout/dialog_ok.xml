@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="50dp">
+    android:layout_marginHorizontal="50dp"
+    android:screenOrientation="landscape">
 
     <RelativeLayout
         android:id="@+id/relativeLayout_dialog_ok"
@@ -12,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="0dp"
-        android:background="#50C6D5">
+        android:background="@drawable/background">
 
         <TextView
             android:id="@+id/txt_message_dialog_ok"
@@ -20,8 +21,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
-            android:text="Thông tin tài khoản hoặc mật khẩu không chính xác" />
+            android:layout_marginTop="37dp"
+            android:text="Thông tin tài khoản hoặc mật khẩu không chính xác"
+            android:textSize="18dp"/>
     </RelativeLayout>
 
     <Button
@@ -31,6 +33,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="75dp"
+        android:backgroundTint="#1877f2"
         android:text="OK" />
 
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:screenOrientation="landscape"
-    android:background="@drawable/background1"
+    android:background="@drawable/background"
     android:layout_gravity="center"
     tools:context=".screens.LoginScr">
 
@@ -78,6 +78,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginEnd="256dp"
             android:layout_marginBottom="53dp"
+            android:backgroundTint="#1877f2"
             android:text="Đăng nhập" />
 
         <Button
@@ -92,6 +93,7 @@
             android:layout_marginTop="150dp"
             android:layout_marginEnd="74dp"
             android:layout_marginBottom="52dp"
+            android:backgroundTint="#1877f2"
             android:text="Quên mật khẩu" />
 
         <TextView
@@ -102,7 +104,8 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="85dp"
             android:layout_marginBottom="23dp"
-            android:text="Bạn chưa có tài khoản?" />
+            android:text="Bạn chưa có tài khoản?"
+            android:textSize="18dp"/>
 
     </RelativeLayout>
 </RelativeLayout>
