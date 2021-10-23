@@ -75,6 +75,9 @@ public class LoginScr extends AppCompatActivity {
                 startOkDlg("Vui lòng liên hệ Admin để lấy lại mật khẩu");
             }
         });
+
+        txt_username.setText("kerhoangde");
+        txt_password.setText("dungdeptrai");
     }
 
     public void NextScreen() {

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Main"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    android:screenOrientation="landscape">
 
     <ImageView
         android:layout_width="match_parent"
