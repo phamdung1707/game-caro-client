@@ -17,7 +17,8 @@
         android:textStyle="bold"
         android:textColor="@color/white"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/linked"/>
 
     <EditText
         android:id="@+id/txt_username_reg"
@@ -31,7 +32,8 @@
         android:ems="10"
         android:hint="Nhập tài khoản"
         android:inputType="textPersonName"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:fontFamily="@font/linked"/>
 
     <EditText
         android:id="@+id/txt_password_reg"
@@ -45,7 +47,8 @@
         android:drawableLeft="@drawable/ic_baseline_lock_24"
         android:drawablePadding="10dp"
         android:padding="10dp"
-        android:background="#30ffffff"/>
+        android:background="#30ffffff"
+        android:fontFamily="@font/linked"/>
 
     <EditText
         android:id="@+id/txt_password_reg_confirm"
@@ -68,5 +71,6 @@
         android:layout_marginHorizontal="30dp"
         android:layout_marginVertical="10dp"
         android:backgroundTint="#1877f2"
-        android:text="Đăng kí" />
+        android:text="Đăng kí"
+        android:fontFamily="@font/linked"/>
 </LinearLayout>
