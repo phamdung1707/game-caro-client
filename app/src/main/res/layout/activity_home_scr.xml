@@ -13,9 +13,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#30ffffff"
-
-        >
+        android:background="#30ffffff">
 
         <LinearLayout
             android:layout_width="wrap_content"
