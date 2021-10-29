@@ -3,7 +3,7 @@
     android:layout_width="400dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_margin="20dp"
+    android:layout_margin="10dp"
     android:screenOrientation="landscape"
     android:background="@drawable/background">
 
@@ -11,7 +11,7 @@
         android:id="@+id/txt_reg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Đăng kí tài khoản"
+        android:text="Đăng ký tài khoản"
         android:gravity="center"
         android:textSize="30dp"
         android:textStyle="bold"
@@ -26,14 +26,15 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:layout_marginVertical="10dp"
-        android:background="#30ffffff"
+        android:background="@drawable/border"
         android:drawableLeft="@drawable/ic_baseline_person_24"
         android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Nhập tài khoản"
         android:inputType="textPersonName"
         android:padding="10dp"
-        android:fontFamily="@font/linked"/>
+        android:fontFamily="@font/linked"
+        android:textColorHint="#30f00000"/>
 
     <EditText
         android:id="@+id/txt_password_reg"
@@ -47,8 +48,9 @@
         android:drawableLeft="@drawable/ic_baseline_lock_24"
         android:drawablePadding="10dp"
         android:padding="10dp"
-        android:background="#30ffffff"
-        android:fontFamily="@font/linked"/>
+        android:background="@drawable/border"
+        android:fontFamily="@font/linked"
+        android:textColorHint="#30f00000"/>
 
     <EditText
         android:id="@+id/txt_password_reg_confirm"
@@ -62,7 +64,9 @@
         android:drawableLeft="@drawable/ic_baseline_lock_24"
         android:drawablePadding="10dp"
         android:padding="10dp"
-        android:background="#30ffffff"/>
+        android:background="@drawable/border"
+        android:fontFamily="@font/linked"
+        android:textColorHint="#30f00000"/>
 
     <Button
         android:id="@+id/btn_register"
@@ -72,5 +76,7 @@
         android:layout_marginVertical="10dp"
         android:backgroundTint="#1877f2"
         android:text="Đăng kí"
-        android:fontFamily="@font/linked"/>
+        android:fontFamily="@font/linked"
+        android:textAllCaps="false"
+        android:textSize="15dp"/>
 </LinearLayout>

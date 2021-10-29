@@ -22,6 +22,8 @@ import com.example.game_caro_client.dialogs.RegisterDialog;
 import com.example.game_caro_client.dialogs.GameDialog;
 import com.example.game_caro_client.services.GameService;
 
+import java.util.regex.Pattern;
+
 public class LoginScr extends AppCompatActivity {
 
     EditText txt_username;
@@ -52,12 +54,15 @@ public class LoginScr extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (txt_username.getText().toString().length() < 5 || txt_username.getText().toString().length() > 10) {
-                    startOkDlg("Tài khoản phải từ 5 đến 10 ký tự!");
-                } else if (txt_password.getText().toString().length() <= 0) {
-                    startOkDlg("Mật khẩu phải lớn hơn 5 ký tự!");
+                Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-] ");
+                String username_login = txt_username.getText().toString().toLowerCase();
+                String password_login = txt_password.getText().toString().toLowerCase();
+                if (username_login.length() < 5 || username_login.length() > 10 || special.matcher(username_login).find()) {
+                    startOkDlg("Tài khoản phải từ 5 đến 10 ký tự và chỉ gồm chữ và số!");
+                } else if (password_login.length() <= 0 || special.matcher(password_login).find()) {
+                    startOkDlg("Mật khẩu phải lớn hơn 5 ký tự và chỉ gồm chữ và số!");
                 } else {
-                    GameService.gI().login(txt_username.getText().toString(), txt_password.getText().toString());
+                    GameService.gI().login(username_login, password_login);
                 }
             }
         });

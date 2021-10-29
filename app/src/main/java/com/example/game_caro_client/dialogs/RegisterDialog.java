@@ -13,6 +13,8 @@ import android.widget.Toast;
 import com.example.game_caro_client.R;
 import com.example.game_caro_client.services.GameService;
 
+import java.util.regex.Pattern;
+
 public class RegisterDialog {
     public static RegisterDialog instance;
 
@@ -50,17 +52,20 @@ public class RegisterDialog {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (txt_username_reg.getText().toString().length() < 5 || txt_username_reg.getText().toString().length() > 10) {
-                    Toast.makeText(context, "Tài khoản phải từ 5 đến 10 ký tự!", Toast.LENGTH_SHORT).show();
+                Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-] ");
+                String username_reg = txt_username_reg.getText().toString().toLowerCase();
+                String password_reg = txt_password_reg.getText().toString().toLowerCase();
+                if (username_reg.length() < 5 || username_reg.length() > 10 || special.matcher(username_reg).find()) {
+                    Toast.makeText(context, "Tài khoản phải từ 5 đến 10 ký tự và chỉ gồm chữ và số!", Toast.LENGTH_SHORT).show();
                 }
-                else if (txt_password_reg.getText().toString().length() < 5) {
-                    Toast.makeText(context, "Mật khẩu phải lớn hơn 5 ký tự!", Toast.LENGTH_SHORT).show();
+                else if (password_reg.length() < 5 || special.matcher(password_reg).find()) {
+                    Toast.makeText(context, "Mật khẩu phải lớn hơn 5 ký tự và chỉ gồm chữ và số!", Toast.LENGTH_SHORT).show();
                 }
-                else if (!txt_password_reg.getText().toString().equals(txt_password_reg_confirm.getText().toString())) {
+                else if (!password_reg.equals(txt_password_reg_confirm.getText().toString())) {
                     Toast.makeText(context, "Mật khẩu không khớp!", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    GameService.gI().register(txt_username_reg.getText().toString(), txt_password_reg.getText().toString());
+                    GameService.gI().register(username_reg, password_reg);
                     dialog.cancel();
                 }
 
