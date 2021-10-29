@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:screenOrientation="landscape"
-    android:background="@drawable/background"
+    android:background="@drawable/background_login"
     android:layout_gravity="center"
     tools:context=".screens.LoginScr">
 
@@ -14,7 +14,7 @@
         android:layout_width="500dp"
         android:layout_height="350dp"
         android:layout_centerInParent="true"
-        android:background="#30ffffff">
+       >
 
         <ImageView
             android:id="@+id/image_logo"
@@ -42,12 +42,12 @@
             android:layout_marginStart="85dp"
             android:layout_marginTop="114dp"
             android:layout_marginEnd="75dp"
-            android:background="#30ffffff"
             android:drawableLeft="@drawable/ic_baseline_person_24"
             android:drawablePadding="10dp"
             android:hint="Nhập tài khoản"
             android:padding="10dp"
-            android:textColorHint="#30f00000" />
+            android:textColorHint="#30f00000"
+            android:background="@drawable/border"/>
 
         <EditText
             android:id="@+id/txt_password"
@@ -59,7 +59,7 @@
             android:layout_marginStart="85dp"
             android:layout_marginTop="179dp"
             android:layout_marginEnd="73dp"
-            android:background="#30ffffff"
+            android:background="@drawable/border"
             android:drawableLeft="@drawable/ic_baseline_lock_24"
             android:drawablePadding="10dp"
             android:hint="Nhập mật khẩu"
@@ -70,6 +70,7 @@
 
         <Button
             android:id="@+id/btn_login"
+            style=""
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -80,10 +81,9 @@
             android:layout_marginEnd="256dp"
             android:layout_marginBottom="53dp"
             android:backgroundTint="#1877f2"
-            android:fontFamily="@font/linked"
+            android:fontFamily="@font/bitcoin"
             android:text="Đăng nhập"
-            android:textSize="13sp"
-            />
+            android:textSize="13sp" />
 
         <Button
             android:id="@+id/btn_request_password"
@@ -98,9 +98,9 @@
             android:layout_marginEnd="74dp"
             android:layout_marginBottom="52dp"
             android:backgroundTint="#1877f2"
-            android:fontFamily="@font/linked"
-            android:textSize="13sp"
-            android:text="Quên mật khẩu" />
+            android:fontFamily="@font/bitcoin"
+            android:text="Quên mật khẩu"
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/txt_register"
@@ -108,11 +108,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="85dp"
-            android:layout_marginBottom="23dp"
-            android:text="Bạn chưa có tài khoản?"
-            android:textSize="18dp"
-            android:fontFamily="@font/linked"/>
+            android:layout_marginStart="198dp"
+            android:layout_marginBottom="21dp"
+            android:fontFamily="@font/linked"
+            android:text="Đăng ký ngay"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
 
     </RelativeLayout>
 </RelativeLayout>
