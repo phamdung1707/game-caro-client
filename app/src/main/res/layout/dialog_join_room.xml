@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:screenOrientation="landscape"
+    android:orientation="vertical"
+    android:background="@drawable/boder_bgr_dialog_select_mod">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="33dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chọn phòng"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/linked"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"/>
+
+        <ImageButton
+            android:id="@+id/btn_close_select_room"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_close"
+            android:layout_marginTop="3dp"
+            android:layout_alignParentRight="true"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/txt_room_id_dialog_select_room"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/border"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Nhập id"
+        android:inputType="numberDecimal"
+        android:padding="10dp"
+        android:fontFamily="@font/linked"
+        android:textColorHint="#30f00000"
+        android:maxLength="6"/>
+
+    <Button
+        android:id="@+id/btn_join_room_dialog_select_room"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="10dp"
+        android:backgroundTint="#1877f2"
+        android:text="Tham gia"
+        android:fontFamily="@font/linked"
+        android:textAllCaps="false"
+        android:textSize="15dp"/>
+</LinearLayout>

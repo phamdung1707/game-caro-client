@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:screenOrientation="landscape"
+    android:background="@drawable/background_home"
+    tools:context=".screens.GameScr"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/img_info_bar_game_src"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-1dp"
+        android:src="@drawable/img_info_bar1"
+        tools:ignore="MissingConstraints" />
+
+    <RelativeLayout
+        android:layout_width="140dp"
+        android:layout_height="20dp"
+        android:layout_alignStart="@+id/img_info_bar_game_src"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/txt_username_game_scr_player_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/linked"
+            android:text="Kerhoangde"
+            android:textColor="@color/white"
+            android:textSize="15dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="140dp"
+        android:layout_height="20dp"
+        android:layout_alignEnd="@+id/img_info_bar_game_src"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp">
+
+        <TextView
+            android:id="@+id/txt_username_game_scr_player_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/linked"
+            android:text="Kerhoangde"
+            android:textColor="@color/white"
+            android:textSize="15dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="6dp">
+
+        <TextView
+            android:id="@+id/txt_money_game_scr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/linked"
+            android:text="1000$"
+            android:textColor="@color/white"
+            android:textSize="25dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="43dp">
+
+        <TextView
+            android:id="@+id/txt_time_game_scr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/linked"
+            android:text="30s"
+            android:textColor="@color/white"
+            android:textSize="15dp" />
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/btn_chat_public"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_chat"
+        android:layout_alignParentRight="true"
+        android:background="?attr/selectableItemBackgroundBorderless"/>
+
+    <ImageButton
+        android:id="@+id/btn_out_game_scr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/img_out" />
+
+    <ImageButton
+        android:id="@+id/btn_setting_game_scr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_chat_public"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="0dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/img_setting" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="10dp"
+        android:backgroundTint="#1877f2"
+        android:fontFamily="@font/linked"
+        android:text="Sẵn sàng"
+        android:textAllCaps="false"
+        android:textSize="15dp" />
+
+    <RelativeLayout
+        android:layout_width="290dp"
+        android:layout_height="290dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/img_info_bar_game_src"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/boder_bgr_dialog_select_mod">
+
+        <GridView
+            android:id="@+id/grid_game"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:numColumns="3" />
+
+    </RelativeLayout>
+</RelativeLayout>

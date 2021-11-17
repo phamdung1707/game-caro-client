@@ -58,8 +58,8 @@ public class RegisterDialog {
                 if (username_reg.length() < 5 || username_reg.length() > 10 || special.matcher(username_reg).find()) {
                     Toast.makeText(context, "Tài khoản phải từ 5 đến 10 ký tự và chỉ gồm chữ và số!", Toast.LENGTH_SHORT).show();
                 }
-                else if (password_reg.length() < 5 || special.matcher(password_reg).find()) {
-                    Toast.makeText(context, "Mật khẩu phải lớn hơn 5 ký tự và chỉ gồm chữ và số!", Toast.LENGTH_SHORT).show();
+                else if (password_reg.length() < 5 || password_reg.length() > 20 || special.matcher(password_reg).find()) {
+                    Toast.makeText(context, "Mật khẩu phải từ 5 đến 20 ký tự và chỉ gồm chữ và số!", Toast.LENGTH_SHORT).show();
                 }
                 else if (!password_reg.equals(txt_password_reg_confirm.getText().toString())) {
                     Toast.makeText(context, "Mật khẩu không khớp!", Toast.LENGTH_SHORT).show();

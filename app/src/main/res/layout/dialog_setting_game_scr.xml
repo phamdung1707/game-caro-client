@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:screenOrientation="landscape"
+    android:orientation="vertical"
+    android:background="@drawable/boder_bgr_dialog_select_mod">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="33dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cài đặt:"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:fontFamily="@font/linked"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"/>
+
+            <TextView
+                android:id="@+id/txt_room_id_dialog_setting_game_scr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="000000"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:fontFamily="@font/linked"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"/>
+        </LinearLayout>
+
+
+        <ImageButton
+            android:id="@+id/btn_close_setting_game_scr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="3dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/img_close" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tiền cược:"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/linked"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"/>
+
+        <TextView
+            android:id="@+id/txt_bets_money_setting_game_scr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100$"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/linked"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"/>
+    </LinearLayout>
+
+    <SeekBar
+        android:id="@+id/seek_bar_bets_money_game_scr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:max="9"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Âm thanh:"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/linked"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/linked"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:backgroundTint="#1877f2"
+            android:text="OK"
+            android:fontFamily="@font/linked"
+            android:textAllCaps="false"
+            android:textSize="15dp"/>
+    </RelativeLayout>
+</LinearLayout>

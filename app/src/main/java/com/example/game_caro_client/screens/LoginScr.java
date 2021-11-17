@@ -59,8 +59,8 @@ public class LoginScr extends AppCompatActivity {
                 String password_login = txt_password.getText().toString().toLowerCase();
                 if (username_login.length() < 5 || username_login.length() > 10 || special.matcher(username_login).find()) {
                     startOkDlg("Tài khoản phải từ 5 đến 10 ký tự và chỉ gồm chữ và số!");
-                } else if (password_login.length() <= 0 || special.matcher(password_login).find()) {
-                    startOkDlg("Mật khẩu phải lớn hơn 5 ký tự và chỉ gồm chữ và số!");
+                } else if (password_login.length() < 5 || password_login.length() > 20 || special.matcher(password_login).find()) {
+                    startOkDlg("Mật khẩu phải từ 5 đến 20 ký tự và chỉ gồm chữ và số!");
                 } else {
                     GameService.gI().login(username_login, password_login);
                 }
@@ -85,7 +85,7 @@ public class LoginScr extends AppCompatActivity {
         txt_password.setText("dungdeptrai");
     }
 
-    public void NextScreen() {
+    public void nextScreen() {
         startActivity(new Intent(this, HomeScr.class));
         finish();
     }

@@ -3,6 +3,9 @@ package com.example.game_caro_client.models;
 public class Player {
     public Long id;
     public String username;
+    public Long money;
+    public int countWin;
+    public int countGame;
     public static Player myPlayer;
 
     public Player() {

@@ -28,7 +28,7 @@ public class Main extends AppCompatActivity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            NextScreen();
+                            nextScreen();
                         }
                     });
                 } catch (InterruptedException e) {
@@ -40,7 +40,7 @@ public class Main extends AppCompatActivity {
 
     }
 
-    public void NextScreen() {
+    public void nextScreen() {
         startActivity(new Intent(this, LoginScr.class));
         finish();
     }

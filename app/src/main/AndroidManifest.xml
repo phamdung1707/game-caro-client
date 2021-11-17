@@ -14,9 +14,15 @@
         android:theme="@style/Theme.GameCaroClient"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".screens.GameScr"
+            android:exported="true"
+            android:screenOrientation="landscape">
+
+        </activity>
+        <activity
             android:name=".screens.HomeScr"
             android:exported="true"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".screens.LoginScr"
             android:exported="true"
