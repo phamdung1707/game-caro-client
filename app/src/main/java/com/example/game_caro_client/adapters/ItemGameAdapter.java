@@ -15,6 +15,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 
 import com.example.game_caro_client.R;
 import com.example.game_caro_client.models.ItemGame;
+import com.example.game_caro_client.models.Room;
 import com.example.game_caro_client.screens.GameScr;
 
 import java.util.ArrayList;
@@ -42,12 +43,26 @@ public class ItemGameAdapter extends ArrayAdapter<ItemGame> {
             ItemGame itemGame = itemGames.get(position);
             ImageView imageCustom = convertView.findViewById(R.id.img_item_game);
 
-            if (itemGame.data == 1) {
-                imageCustom.setImageResource(R.drawable.img_o);
-
+            if (itemGame.data == 0) {
+                imageCustom.setImageResource(R.drawable.img_bgr_item_game);
             }
+
+            if (itemGame.data == 1) {
+                if (Room.lastIndexSelected == position) {
+                    imageCustom.setImageResource(R.drawable.img_o_select);
+                }
+                else {
+                    imageCustom.setImageResource(R.drawable.img_o);
+                }
+            }
+
             if (itemGame.data == 2) {
-                imageCustom.setImageResource(R.drawable.img_x);
+                if (Room.lastIndexSelected == position) {
+                    imageCustom.setImageResource(R.drawable.img_x_select);
+                }
+                else {
+                    imageCustom.setImageResource(R.drawable.img_x);
+                }
             }
         }
 

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="50dp"
+    android:screenOrientation="landscape">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_dialog_yes_no"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/bgr_dialog_ok">
+
+        <TextView
+            android:id="@+id/txt_message_dialog_yes_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="37dp"
+            android:fontFamily="@font/linked"
+            android:text="Bạn có muốn thoát không?"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="75dp"
+        android:layout_centerHorizontal="true">
+        <Button
+            android:id="@+id/btn_dialog_yes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#1877f2"
+            android:text="Có"
+            android:fontFamily="@font/linked"
+            android:layout_marginRight="10dp"/>
+
+        <Button
+            android:id="@+id/btn_dialog_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#1877f2"
+            android:text="Không"
+            android:fontFamily="@font/linked"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+
+</RelativeLayout>

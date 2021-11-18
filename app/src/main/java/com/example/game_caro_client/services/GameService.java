@@ -3,6 +3,7 @@ package com.example.game_caro_client.services;
 import com.example.game_caro_client.hubs.GameHub;
 import com.example.game_caro_client.hubs.Message;
 import com.example.game_caro_client.models.Player;
+import com.example.game_caro_client.models.Room;
 
 public class GameService {
     public static GameService instance;
@@ -83,10 +84,11 @@ public class GameService {
         }
     }
 
-    public void readyRoom(int roomId) {
-        Message message = new Message(5);
+    public void exitRoom() {
+        Message message = new Message(6);
         try {
-            message.write(String.valueOf(roomId));
+            message.write(String.valueOf(Room.roomId));
+            message.write(Player.getMyPlayer().id.toString());
             this.SendMessageToServer(message);
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -95,10 +97,42 @@ public class GameService {
         }
     }
 
-    public void startRoom(int roomId) {
-        Message message = new Message(6);
+    public void readyRoom() {
+        Message message = new Message(7);
         try {
-            message.write(String.valueOf(roomId));
+            message.write(String.valueOf(Room.roomId));
+            this.SendMessageToServer(message);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        } finally {
+            message = null;
+        }
+    }
+
+    public void startRoom() {
+        Message message = new Message(8);
+        try {
+            message.write(String.valueOf(Room.roomId));
+            this.SendMessageToServer(message);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        } finally {
+            message = null;
+        }
+    }
+
+    public void attack() {
+        Message message = new Message(9);
+        try {
+            message.write(String.valueOf(Room.roomId));
+            message.write(Room.data);
+            if (Room.hostId == Player.getMyPlayer().id) {
+                Room.turnId = Room.player.id;
+            }
+            else {
+                Room.turnId = Room.hostId;
+            }
+            message.write(String.valueOf(Room.turnId));
             this.SendMessageToServer(message);
         } catch (Exception e) {
             System.out.println(e.toString());

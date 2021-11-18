@@ -18,7 +18,13 @@ public class Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_scr);
 
-        GameHub.gI().onCreate();
+        try {
+            GameHub.gI().onCreate();
+        }
+        catch (Exception exception) {
+            System.out.println("Disconnect to server");
+        }
+
 
         Thread thread = new Thread() {
             @Override

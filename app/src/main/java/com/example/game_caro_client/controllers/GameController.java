@@ -11,8 +11,6 @@ import com.example.game_caro_client.screens.GameScr;
 import com.example.game_caro_client.screens.HomeScr;
 import com.example.game_caro_client.screens.LoginScr;
 
-import java.math.RoundingMode;
-
 public class GameController {
     public static GameController instance;
 
@@ -93,8 +91,10 @@ public class GameController {
                 homeScr.nextScreen();
                 break;
             case 4:
+                System.out.println("join room");
+
                 if (message.data.startsWith("0")) {
-                    System.out.println(message.data.substring(2));
+                    homeScr.startOkDlg(message.data.substring(2));
                 }
                 else {
                     message.data = message.data.substring(2);
@@ -114,17 +114,19 @@ public class GameController {
             case 5:
                 if (message.data.startsWith("0")) {
                     Room.player = null;
-                    Room.reset();
-                    if (Room.roomId != Player.getMyPlayer().id) {
-                        gameScr.nextScreen();
+                    if (!Room.hostId.equals(Player.getMyPlayer().id)) {
+                        if (Room.isStarted) {
+                            gameScr.startOkDlgWithAction("Chủ phòng đã thoát. Bạn đã thắng!");
+                        } else {
+                            gameScr.startOkDlgWithAction("Chủ phòng đã thoát.");
+                        }
                     }
                     else {
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                GameDialog.gI().startOkDlg(context, "Đối thủ đã rời phòng");
-                            }
-                        });
+                        if (Room.isStarted) {
+                            gameScr.startOkDlg("Đối thủ đã rời phòng. Bạn đã thắng!");
+                        } else {
+                            gameScr.startOkDlg("Đối thủ đã rời phòng.");
+                        }
                     }
                 }
                 else {
@@ -135,6 +137,36 @@ public class GameController {
                     Room.player.money = message.ReadLong();
                     Room.player.countWin = message.ReadInt();
                     Room.player.countGame = message.ReadInt();
+                }
+                Room.reset();
+                break;
+            case 7:
+                System.out.println("ready room");
+                Room.isReady = message.ReadString().equals("1");
+                break;
+            case 8:
+                System.out.println("start room");
+                Room.turnId = message.ReadLong();
+                Room.data = message.ReadString();
+                GameScr.isChangeUI = true;
+                Room.isStarted = true;
+                break;
+            case 9:
+                System.out.println("attack room");
+                int id = message.ReadInt();
+                Room.data = message.ReadString();
+                Room.turnId = message.ReadLong();
+                Room.lastIndexSelected = -1;
+                GameScr.isChangeUI = true;
+                int dameWin = message.ReadInt();
+                if (dameWin != 0) {
+                    if (dameWin == GameScr.getDame(Room.hostId, Player.getMyPlayer().id)) {
+                        gameScr.startOkDlg("Bạn đã thắng và nhận được " + ((int)(Room.money * 1.8)) + "$");
+                    }
+                    else {
+                        gameScr.startOkDlg("Bạn đã thua!");
+                    }
+                    Room.reset();
                 }
                 break;
         }

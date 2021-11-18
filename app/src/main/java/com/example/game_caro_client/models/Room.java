@@ -10,10 +10,13 @@ public class Room {
     public static int time;
     public static Player player;
     public static Long hostId;
+    public static Long turnId;
+    public static int lastIndexSelected;
 
     public static void reset() {
         isStarted = false;
         isReady = false;
         time = 30;
+        lastIndexSelected = -1;
     }
 }

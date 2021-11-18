@@ -25,7 +25,7 @@ public class HomeScr extends AppCompatActivity {
 
     Context context;
 
-    Handler handler = new Handler();
+    public Handler handler = new Handler();
 
     Thread gameLoop;
 
@@ -36,6 +36,10 @@ public class HomeScr extends AppCompatActivity {
     TextView txt_rate_home_scr;
 
     boolean isUpdate;
+
+    public static boolean isShowDialogOK;
+
+    public static String infoDialogOk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +105,11 @@ public class HomeScr extends AppCompatActivity {
         txt_username_home_scr.setText(Player.getMyPlayer().username);
         txt_money_home_scr.setText(PlayerUtils.getMoneys(Player.getMyPlayer().money) + "$");
         txt_rate_home_scr.setText(PlayerUtils.getMoneys(Player.getMyPlayer().countWin) + "/" + PlayerUtils.getMoneys(Player.getMyPlayer().countGame));
+
+        if (isShowDialogOK) {
+            isShowDialogOK = false;
+            GameDialog.gI().startOkDlg(context, infoDialogOk);
+        }
     }
 
     public void nextScreen() {
@@ -108,6 +117,11 @@ public class HomeScr extends AppCompatActivity {
         //gameLoop.destroy();
         startActivity(new Intent(this, GameScr.class));
         finish();
+    }
+
+    public void startOkDlg(String info) {
+        isShowDialogOK = true;
+        infoDialogOk = info;
     }
 
 }
