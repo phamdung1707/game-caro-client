@@ -28,4 +28,19 @@ public class Room {
         isEnd = false;
         indexWins.clear();
     }
+
+    public static void resetData() {
+        if (type == 0) {
+            data = "000000000";
+            return;
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i =0; i < 80; i++) {
+            stringBuilder.append(0);
+        }
+
+        data = stringBuilder.toString();
+    }
 }

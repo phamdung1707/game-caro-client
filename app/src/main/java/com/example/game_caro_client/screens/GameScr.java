@@ -140,6 +140,9 @@ public class GameScr extends AppCompatActivity {
                         Toast.makeText(context, "Vui lòng chờ đến lượt!", Toast.LENGTH_SHORT).show();
                     }
                 }
+                if (Room.isEnd) {
+                    Toast.makeText(context, "Trận đấu đã kết thúc!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -160,17 +163,7 @@ public class GameScr extends AppCompatActivity {
         btn_out_game_scr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  GameDialog.gI().startYesNoDlgWithAction(context, "Bạn có muốn thoát phòng không?", GameDialog.ACTION_EXIT_ROOM);
-                Room.data = "222222222";
-                for (int i = 0; i < itemGames.size(); i++) {
-                    itemGames.get(i).data = 2;
-                }
-                isChangeUI = true;
-                //Room.isStarted = true;
-                Room.indexWins.add(1);
-                Room.indexWins.add(4);
-                Room.indexWins.add(7);
-                Room.isEnd = true;
+                GameDialog.gI().startYesNoDlgWithAction(context, "Bạn có muốn thoát phòng không?", GameDialog.ACTION_EXIT_ROOM);
             }
         });
 
@@ -302,10 +295,12 @@ public class GameScr extends AppCompatActivity {
         if (Room.isEnd) {
             timeEnd++;
             if ((timeEnd > 500 && timeEnd <= 1000) || (timeEnd > 1200 && timeEnd <= 1400)  || (timeEnd > 1600 && timeEnd <= 1800)) {
-                Room.data = "000000000";
+                Room.resetData();
+
                 for (int i = 0; i < itemGames.size(); i++) {
                     itemGames.get(i).data = 0;
                 }
+
                 isChangeUI = true;
             }
             if ((timeEnd > 1000 && timeEnd <= 1200) || (timeEnd > 1400 && timeEnd <= 1600) || timeEnd > 1800) {
