@@ -2,8 +2,10 @@ package com.example.game_caro_client.screens;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -11,19 +13,24 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.game_caro_client.R;
 import com.example.game_caro_client.adapters.ItemGameAdapter;
+import com.example.game_caro_client.common.PlayerUtils;
 import com.example.game_caro_client.controllers.GameController;
 import com.example.game_caro_client.dialogs.GameDialog;
 import com.example.game_caro_client.models.ItemGame;
 import com.example.game_caro_client.models.Player;
 import com.example.game_caro_client.models.Room;
+import com.example.game_caro_client.models.TextChat;
 import com.example.game_caro_client.services.GameService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GameScr extends AppCompatActivity {
     GridView grid_game;
@@ -48,6 +55,10 @@ public class GameScr extends AppCompatActivity {
 
     TextView txt_username_game_scr_player_two;
 
+    TextView txt_money_game_scr_player_one;
+
+    TextView txt_money_game_scr_player_two;
+
     TextView txt_money_game_scr;
 
     TextView txt_time_game_scr;
@@ -68,6 +79,20 @@ public class GameScr extends AppCompatActivity {
 
     public static String infoDialogOkEndGame;
 
+    public static List<TextChat> textChats = new ArrayList<>();
+
+    public int xChat;
+
+    RelativeLayout bgr_txt_chat_public;
+
+    TextView txt_chat_public_game_scr;
+
+    public static long lastTimeShowTextChat;
+
+    public static int gameTicks;
+
+    public static int timeEnd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +111,10 @@ public class GameScr extends AppCompatActivity {
         txt_money_game_scr = (TextView) findViewById(R.id.txt_money_game_scr);
         txt_time_game_scr = (TextView) findViewById(R.id.txt_time_game_scr);
         btn_status_game_scr = (Button) findViewById(R.id.btn_status_game_scr);
+        txt_money_game_scr_player_one = (TextView) findViewById(R.id.txt_money_game_scr_player_one);
+        txt_money_game_scr_player_two = (TextView) findViewById(R.id.txt_money_game_scr_player_two);
+        bgr_txt_chat_public = (RelativeLayout) findViewById(R.id.bgr_txt_chat_public);
+        txt_chat_public_game_scr = (TextView) findViewById(R.id.txt_chat_public_game_scr);
 
         while (itemGames.size() < 9) {
             itemGames.add(new ItemGame());
@@ -97,7 +126,7 @@ public class GameScr extends AppCompatActivity {
         grid_game.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (Room.isStarted) {
+                if (Room.isStarted && !Room.isEnd) {
                     if (Room.turnId.equals(Player.getMyPlayer().id)) {
                         int dame = getDame(Room.hostId, Room.turnId);
                         if (Room.type == 0) {
@@ -106,7 +135,6 @@ public class GameScr extends AppCompatActivity {
                         else {
                             attackByTypeOne();
                         }
-
                     }
                     else {
                         Toast.makeText(context, "Vui lòng chờ đến lượt!", Toast.LENGTH_SHORT).show();
@@ -132,7 +160,17 @@ public class GameScr extends AppCompatActivity {
         btn_out_game_scr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GameDialog.gI().startYesNoDlg(context, "Bạn có muốn thoát phòng không?");
+              //  GameDialog.gI().startYesNoDlgWithAction(context, "Bạn có muốn thoát phòng không?", GameDialog.ACTION_EXIT_ROOM);
+                Room.data = "222222222";
+                for (int i = 0; i < itemGames.size(); i++) {
+                    itemGames.get(i).data = 2;
+                }
+                isChangeUI = true;
+                //Room.isStarted = true;
+                Room.indexWins.add(1);
+                Room.indexWins.add(4);
+                Room.indexWins.add(7);
+                Room.isEnd = true;
             }
         });
 
@@ -144,8 +182,14 @@ public class GameScr extends AppCompatActivity {
                     GameService.gI().startRoom();
                 }
                 else {
-                    Room.isReady = true;
-                    GameService.gI().readyRoom();
+                    if (Player.getMyPlayer().money < Room.money) {
+                        Toast.makeText(context, "Bạn không đủ tiền!", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Room.isReady = true;
+                        GameService.gI().readyRoom();
+                    }
+
                 }
             }
         });
@@ -248,7 +292,55 @@ public class GameScr extends AppCompatActivity {
         return (hostId.equals(playerId)) ? 1: 2;
     }
 
+    @SuppressLint("SetTextI18n")
     public void update() {
+        gameTicks++;
+        if (gameTicks > 9999) {
+            gameTicks = 0;
+        }
+
+        if (Room.isEnd) {
+            timeEnd++;
+            if ((timeEnd > 500 && timeEnd <= 1000) || (timeEnd > 1200 && timeEnd <= 1400)  || (timeEnd > 1600 && timeEnd <= 1800)) {
+                Room.data = "000000000";
+                for (int i = 0; i < itemGames.size(); i++) {
+                    itemGames.get(i).data = 0;
+                }
+                isChangeUI = true;
+            }
+            if ((timeEnd > 1000 && timeEnd <= 1200) || (timeEnd > 1400 && timeEnd <= 1600) || timeEnd > 1800) {
+                StringBuilder data = new StringBuilder();
+
+                for (int i = 0; i < itemGames.size(); i++) {
+                    System.out.println(Room.indexWins.size());
+                    if (Room.indexWins.contains(i)) {
+                        data.append(Room.dameWin);
+                        itemGames.get(i).data = Room.dameWin;
+                    }
+                    else {
+                        data.append(itemGames.get(i).data);
+                    }
+                }
+
+                Room.data = data.toString();
+                isChangeUI = true;
+
+                if (timeEnd > 2500) {
+                    Room.isEnd = false;
+                    Room.reset();
+                    isChangeUI = true;
+                    timeEnd = 0;
+
+                    if (Room.isMeWin) {
+                        startOkDlg("Bạn đã thắng và nhận được " + ((int)(Room.money * 1.8)) + "$");
+                    }
+                    else {
+                        startOkDlg("Bạn đã thua!");
+                    }
+                }
+            }
+        }
+
         if (Room.isStarted) {
             try {
                 char[] charArray = Room.data.toCharArray();
@@ -289,26 +381,31 @@ public class GameScr extends AppCompatActivity {
 
         if (Room.hostId.equals(Player.getMyPlayer().id)) {
             txt_username_game_scr_player_one.setText(Player.getMyPlayer().username);
+            txt_money_game_scr_player_one.setText(PlayerUtils.getMoneys(Player.getMyPlayer().money) + "$");
             if (Room.player != null) {
                 txt_username_game_scr_player_two.setText(Room.player.username);
+                txt_money_game_scr_player_two.setText(PlayerUtils.getMoneys(Room.player.money) + "$");
             }
             else {
                 txt_username_game_scr_player_two.setText("");
+                txt_money_game_scr_player_two.setText("");
             }
         }
         else {
             txt_username_game_scr_player_two.setText(Player.getMyPlayer().username);
+            txt_money_game_scr_player_two.setText(PlayerUtils.getMoneys(Player.getMyPlayer().money) + "$");
             if (Room.player != null) {
                 txt_username_game_scr_player_one.setText(Room.player.username);
+                txt_money_game_scr_player_one.setText(PlayerUtils.getMoneys(Room.player.money) + "$");
             }
             else {
                 txt_username_game_scr_player_one.setText("");
+                txt_money_game_scr_player_one.setText("");
             }
         }
 
         txt_money_game_scr.setText(Room.money + "$");
         txt_time_game_scr.setText(Room.time + "s");
-
 
         if (Room.isStarted) {
             if (Room.time > 0 && System.currentTimeMillis() - lastTimeGame > 1000L) {
@@ -332,12 +429,14 @@ public class GameScr extends AppCompatActivity {
 
         if (isShowDialogOkWithAction) {
             isShowDialogOkWithAction = false;
-            GameDialog.gI().startOkDlgWithAction(context, infoDialogOkWithAction);
+            GameDialog.gI().startOkDlgWithActionBackScreen(context, infoDialogOkWithAction);
         }
     }
 
     public void updateUI() {
         itemGameAdapter.update(itemGames);
+
+        paintChat();
     }
 
     public void backScreen() {
@@ -361,4 +460,39 @@ public class GameScr extends AppCompatActivity {
         infoDialogOkEndGame = info;
     }
 
+    public void paintChat() {
+        if (textChats.size() == 0) {
+            xChat = bgr_txt_chat_public.getWidth();
+            bgr_txt_chat_public.setVisibility(View.INVISIBLE);
+            return;
+        }
+        bgr_txt_chat_public.setVisibility(View.VISIBLE);
+        TextChat textChat = textChats.get(0);
+        if (textChat.isChatServer) {
+            txt_chat_public_game_scr.setTextColor(Color.parseColor("#BAAB28"));
+        }
+        else {
+            txt_chat_public_game_scr.setTextColor(Color.YELLOW);
+        }
+
+        if (gameTicks % 2 == 0 && xChat > 5) {
+            xChat -= 5;
+        }
+
+        if (xChat <= 5) {
+            if (System.currentTimeMillis() - lastTimeShowTextChat > 2000) {
+                lastTimeShowTextChat = System.currentTimeMillis();
+                textChats.remove(0);
+                xChat = bgr_txt_chat_public.getWidth();
+            }
+        }
+        else {
+            lastTimeShowTextChat = System.currentTimeMillis();
+        }
+
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) txt_chat_public_game_scr.getLayoutParams();
+        params.setMarginStart(xChat);
+        txt_chat_public_game_scr.setText(textChat.content);
+        txt_chat_public_game_scr.setLayoutParams(params);
+    }
 }

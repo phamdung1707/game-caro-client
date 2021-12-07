@@ -41,6 +41,25 @@
     <RelativeLayout
         android:layout_width="140dp"
         android:layout_height="20dp"
+        android:layout_alignStart="@+id/img_info_bar_game_src"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="35dp">
+
+        <TextView
+            android:id="@+id/txt_money_game_scr_player_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/linked"
+            android:text="10000000$"
+            android:textColor="@color/white"
+            android:textSize="12dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="140dp"
+        android:layout_height="20dp"
         android:layout_alignEnd="@+id/img_info_bar_game_src"
         android:layout_alignParentTop="true"
         android:layout_marginTop="10dp"
@@ -55,6 +74,25 @@
             android:text="Kerhoangde"
             android:textColor="@color/white"
             android:textSize="15dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="140dp"
+        android:layout_height="20dp"
+        android:layout_alignEnd="@+id/img_info_bar_game_src"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="5dp">
+
+        <TextView
+            android:id="@+id/txt_money_game_scr_player_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/linked"
+            android:text="100000000$"
+            android:textColor="@color/white"
+            android:textSize="12dp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -145,6 +183,25 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:numColumns="3" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bgr_txt_chat_public"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="#0B18ED"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/txt_chat_public_game_scr"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:fontFamily="@font/linked"
+            android:text="[696969] kerhoangde: dũng đẹp trai nhất vũ trụ"
+            android:textColor="#BAAB28" />
 
     </RelativeLayout>
 </RelativeLayout>

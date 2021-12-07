@@ -7,6 +7,7 @@ import com.example.game_caro_client.dialogs.GameDialog;
 import com.example.game_caro_client.hubs.Message;
 import com.example.game_caro_client.models.Player;
 import com.example.game_caro_client.models.Room;
+import com.example.game_caro_client.models.TextChat;
 import com.example.game_caro_client.screens.GameScr;
 import com.example.game_caro_client.screens.HomeScr;
 import com.example.game_caro_client.screens.LoginScr;
@@ -114,16 +115,22 @@ public class GameController {
             case 5:
                 if (message.data.startsWith("0")) {
                     Room.player = null;
+                    if (Room.isStarted) {
+                        message.data = message.data.substring(2);
+                        Player.getMyPlayer().money = message.ReadLong();
+                        Player.getMyPlayer().countWin = message.ReadInt();
+                    }
+
                     if (!Room.hostId.equals(Player.getMyPlayer().id)) {
                         if (Room.isStarted) {
-                            gameScr.startOkDlgWithAction("Chủ phòng đã thoát. Bạn đã thắng!");
+                            gameScr.startOkDlgWithAction("Chủ phòng đã thoát. Bạn nhận được "+ ((int)(Room.money * 1.8)) + "$");
                         } else {
                             gameScr.startOkDlgWithAction("Chủ phòng đã thoát.");
                         }
                     }
                     else {
                         if (Room.isStarted) {
-                            gameScr.startOkDlg("Đối thủ đã rời phòng. Bạn đã thắng!");
+                            gameScr.startOkDlg("Đối thủ đã rời phòng. Bạn nhận được "+ ((int)(Room.money * 1.8)) + "$");
                         } else {
                             gameScr.startOkDlg("Đối thủ đã rời phòng.");
                         }
@@ -148,6 +155,18 @@ public class GameController {
                 System.out.println("start room");
                 Room.turnId = message.ReadLong();
                 Room.data = message.ReadString();
+                if (Room.hostId.equals(Player.getMyPlayer().id)) {
+                    Player.getMyPlayer().money = message.ReadLong();
+                    Player.getMyPlayer().countGame = message.ReadInt();
+                    Room.player.money = message.ReadLong();
+                    Room.player.countGame = message.ReadInt();
+                }
+                else {
+                    Room.player.money = message.ReadLong();
+                    Room.player.countGame = message.ReadInt();
+                    Player.getMyPlayer().money = message.ReadLong();
+                    Player.getMyPlayer().countGame = message.ReadInt();
+                }
                 GameScr.isChangeUI = true;
                 Room.isStarted = true;
                 break;
@@ -158,16 +177,45 @@ public class GameController {
                 Room.turnId = message.ReadLong();
                 Room.lastIndexSelected = -1;
                 GameScr.isChangeUI = true;
-                int dameWin = message.ReadInt();
-                if (dameWin != 0) {
-                    if (dameWin == GameScr.getDame(Room.hostId, Player.getMyPlayer().id)) {
-                        gameScr.startOkDlg("Bạn đã thắng và nhận được " + ((int)(Room.money * 1.8)) + "$");
+                String dameWin = message.ReadString();
+                if (!dameWin.equals("0")) {
+                    String[] array = dameWin.split("\\-");
+
+                    Room.indexWins.clear();
+                    Room.dameWin = Integer.parseInt(array[0]);
+
+                    for (int i = 1; i < array.length; i++) {
+                        Room.indexWins.add(Integer.parseInt(array[i]));
+                    }
+
+                    if (dameWin.startsWith(GameScr.getDame(Room.hostId, Player.getMyPlayer().id) + "")) {
+                        Player.getMyPlayer().money = message.ReadLong();
+                        Player.getMyPlayer().countWin = message.ReadInt();
+                        //gameScr.startOkDlg("Bạn đã thắng và nhận được " + ((int)(Room.money * 1.8)) + "$");
+                        Room.isMeWin = true;
                     }
                     else {
-                        gameScr.startOkDlg("Bạn đã thua!");
+                        Room.player.money = message.ReadLong();
+                        Room.player.countWin = message.ReadInt();
+                        //gameScr.startOkDlg("Bạn đã thua!");
+                        Room.isMeWin = false;
                     }
-                    Room.reset();
+
+                    Room.isEnd = true;
                 }
+                break;
+            case 10:
+                System.out.println("set money room");
+                Room.money = message.ReadInt();
+                break;
+            case 11:
+                System.out.println("chat room");
+                int roomId = message.ReadInt();
+                GameScr.textChats.add(new TextChat(message.ReadString(), false));
+                break;
+            case 12:
+                System.out.println("chat global");
+                GameScr.textChats.add(new TextChat(message.ReadString(), true));
                 break;
         }
     }

@@ -141,6 +141,46 @@ public class GameService {
         }
     }
 
+    public void setMoney(int money) {
+        Message message = new Message(10);
+        try {
+            message.write(String.valueOf(Room.roomId));
+            Room.money = money;
+            message.write(String.valueOf(money));
+            this.SendMessageToServer(message);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        } finally {
+            message = null;
+        }
+    }
 
+    public void chat(String content) {
+        Message message = new Message(11);
+        try {
+            message.write(String.valueOf(Room.roomId));
+            message.write(Player.getMyPlayer().username);
+            message.write(content);
+            this.SendMessageToServer(message);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        } finally {
+            message = null;
+        }
+    }
+
+    public void chatGlobal(String content) {
+        Message message = new Message(12);
+        try {
+            message.write(Player.getMyPlayer().id.toString());
+            message.write(Player.getMyPlayer().username);
+            message.write(content);
+            this.SendMessageToServer(message);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        } finally {
+            message = null;
+        }
+    }
 
 }

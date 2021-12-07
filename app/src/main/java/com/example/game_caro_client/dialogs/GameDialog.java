@@ -17,10 +17,15 @@ import android.widget.Toast;
 
 import com.example.game_caro_client.R;
 import com.example.game_caro_client.controllers.GameController;
+import com.example.game_caro_client.models.Player;
+import com.example.game_caro_client.models.Room;
 import com.example.game_caro_client.services.GameService;
 
 public class GameDialog {
     public static GameDialog instance;
+    public static final int ACTION_EXIT_ROOM = 0;
+    public static final int ACTION_SET_MONEY = 1;
+    public static int money;
 
     public static GameDialog gI() {
         if (instance == null) {
@@ -65,7 +70,7 @@ public class GameDialog {
         dialog.show();
     }
 
-    public void startOkDlgWithAction(Context context, String message) {
+    public void startOkDlgWithActionBackScreen(Context context, String message) {
         Dialog dialog = new Dialog(context);
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -102,7 +107,7 @@ public class GameDialog {
         dialog.show();
     }
 
-    public void startYesNoDlg(Context context, String message) {
+    public void startYesNoDlgWithAction(Context context, String message, int action) {
         Dialog dialog = new Dialog(context);
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -139,8 +144,14 @@ public class GameDialog {
         btn_dialog_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GameService.gI().exitRoom();
-                GameController.gI().gameScr.backScreen();
+                if (action == GameDialog.ACTION_EXIT_ROOM) {
+                    GameService.gI().exitRoom();
+                    GameController.gI().gameScr.backScreen();
+                }
+                else if (action == GameDialog.ACTION_SET_MONEY) {
+                    GameService.gI().setMoney(money);
+                }
+
                 dialog.cancel();
             }
         });
@@ -307,6 +318,41 @@ public class GameDialog {
         dialog.setCancelable(true);
 
         ImageButton btn_close_chat_room = dialog.findViewById(R.id.btn_close_chat_room);
+        Button btn_chat_public_dialog = dialog.findViewById(R.id.btn_chat_public_dialog);
+        Button btn_chat_global_dialog = dialog.findViewById(R.id.btn_chat_global_dialog);
+        TextView txt_chat_public = dialog.findViewById(R.id.txt_chat_public);
+
+        btn_chat_public_dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String content = txt_chat_public.getText().toString().trim();
+                if (content.equals("")) {
+                    Toast.makeText(context, "Vui lòng nhập nội dung!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    GameService.gI().chat(content);
+                    dialog.cancel();
+                }
+            }
+        });
+
+        btn_chat_global_dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String content = txt_chat_public.getText().toString().trim();
+                if (content.equals("")) {
+                    Toast.makeText(context, "Vui lòng nhập nội dung!", Toast.LENGTH_SHORT).show();
+                }
+                else if (Player.getMyPlayer().money < 5000) {
+                    Toast.makeText(context, "Bạn không đủ tiền để chat thế giới", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Player.getMyPlayer().money -= 5000;
+                    GameService.gI().chatGlobal(content);
+                    dialog.cancel();
+                }
+            }
+        });
 
         btn_close_chat_room.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -342,6 +388,63 @@ public class GameDialog {
         ImageButton btn_close_setting_game_scr = dialog.findViewById(R.id.btn_close_setting_game_scr);
         SeekBar seek_bar_bets_money_game_scr = dialog.findViewById(R.id.seek_bar_bets_money_game_scr);
         TextView txt_bets_money_setting_game_scr = dialog.findViewById(R.id.txt_bets_money_setting_game_scr);
+        TextView txt_room_id_dialog_setting_game_scr = dialog.findViewById(R.id.txt_room_id_dialog_setting_game_scr);
+        Button btn_ok_setting_game_scr = dialog.findViewById(R.id.btn_ok_setting_game_scr);
+
+        txt_room_id_dialog_setting_game_scr.setText(String.valueOf(Room.roomId));
+        txt_bets_money_setting_game_scr.setText(Room.money + "$");
+
+        if (txt_bets_money_setting_game_scr.getText().toString().equals("100$")) {
+            seek_bar_bets_money_game_scr.setProgress(0);
+        }
+        else if (txt_bets_money_setting_game_scr.getText().toString().equals("200$")) {
+            seek_bar_bets_money_game_scr.setProgress(1);
+        }
+        else if (txt_bets_money_setting_game_scr.getText().toString().equals("300$")) {
+            seek_bar_bets_money_game_scr.setProgress(2);
+        }
+        else if (txt_bets_money_setting_game_scr.getText().toString().equals("500$")) {
+            seek_bar_bets_money_game_scr.setProgress(3);
+        }
+        else if (txt_bets_money_setting_game_scr.getText().toString().equals("1000$")) {
+            seek_bar_bets_money_game_scr.setProgress(4);
+        }
+        else if (txt_bets_money_setting_game_scr.getText().toString().equals("2000$")) {
+            seek_bar_bets_money_game_scr.setProgress(5);
+        }
+        else if (txt_bets_money_setting_game_scr.getText().toString().equals("3000$")) {
+            seek_bar_bets_money_game_scr.setProgress(6);
+        }
+        else if (txt_bets_money_setting_game_scr.getText().toString().equals("5000$")) {
+            seek_bar_bets_money_game_scr.setProgress(7);
+        }
+        else if (txt_bets_money_setting_game_scr.getText().toString().equals("10000$")) {
+            seek_bar_bets_money_game_scr.setProgress(8);
+        }
+        else {
+            seek_bar_bets_money_game_scr.setProgress(9);
+        }
+
+        btn_ok_setting_game_scr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Room.isStarted) {
+                    Toast.makeText(context, "Trận đấu đang diễn ra!", Toast.LENGTH_SHORT).show();
+                }
+                else  {
+                    int money = Integer.parseInt(txt_bets_money_setting_game_scr.getText().toString().replace("$", "").trim());
+                    if (Room.money == money) {
+                        Toast.makeText(context, "Mức cược hiện tại đang là " + money + "$", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        GameDialog.money = money;
+                        startYesNoDlgWithAction(context, "Thay đổi mức tiền cược thành " + money + "$ ?", GameDialog.ACTION_SET_MONEY);
+                        dialog.cancel();
+                    }
+                }
+
+            }
+        });
 
         btn_close_setting_game_scr.setOnClickListener(new View.OnClickListener() {
             @Override

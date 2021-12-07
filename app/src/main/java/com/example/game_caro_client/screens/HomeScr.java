@@ -2,6 +2,7 @@ package com.example.game_caro_client.screens;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -101,6 +102,7 @@ public class HomeScr extends AppCompatActivity {
         new Thread(gameLoop).start();
     }
 
+    @SuppressLint("SetTextI18n")
     public void update() {
         txt_username_home_scr.setText(Player.getMyPlayer().username);
         txt_money_home_scr.setText(PlayerUtils.getMoneys(Player.getMyPlayer().money) + "$");

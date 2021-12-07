@@ -114,14 +114,15 @@
         android:layout_height="wrap_content">
 
         <Button
+            android:id="@+id/btn_ok_setting_game_scr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="10dp"
             android:backgroundTint="#1877f2"
-            android:text="OK"
             android:fontFamily="@font/linked"
+            android:text="OK"
             android:textAllCaps="false"
-            android:textSize="15dp"/>
+            android:textSize="15dp" />
     </RelativeLayout>
 </LinearLayout>

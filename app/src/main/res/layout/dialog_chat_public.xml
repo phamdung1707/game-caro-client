@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chat phòng"
+            android:text="Chat"
             android:textSize="25dp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -32,6 +32,7 @@
     </RelativeLayout>
 
     <EditText
+        android:id="@+id/txt_chat_public"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
@@ -40,7 +41,6 @@
         android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Nhập nội dung bạn muốn chat"
-        android:inputType="numberDecimal"
         android:padding="10dp"
         android:fontFamily="@font/linked"
         android:textColorHint="#30f00000"/>
@@ -53,6 +53,18 @@
         android:layout_marginBottom="10dp"
         android:backgroundTint="#1877f2"
         android:text="Chat"
+        android:fontFamily="@font/linked"
+        android:textAllCaps="false"
+        android:textSize="15dp"/>
+
+    <Button
+        android:id="@+id/btn_chat_global_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#1877f2"
+        android:text="Chat thế giới (5000$)"
         android:fontFamily="@font/linked"
         android:textAllCaps="false"
         android:textSize="15dp"/>
