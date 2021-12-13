@@ -86,6 +86,7 @@ public class GameController {
                 Room.player = null;
                 Room.isStarted = false;
                 Room.time = 30;
+                Room.isPlayWithBot = false;
 
                 System.out.println("create room: " + Room.roomId);
 
@@ -216,6 +217,69 @@ public class GameController {
             case 12:
                 System.out.println("chat global");
                 GameScr.textChats.add(new TextChat(message.ReadString(), true));
+                HomeScr.textChatGlobals.add(new TextChat(message.ReadString(), true));
+                break;
+            case 13:
+                System.out.println("create room bot");
+
+                Room.roomId = message.ReadInt();
+                Room.hostId = Player.getMyPlayer().id;
+                Room.money = 1000;
+                Room.type = 1;
+                Room.data = message.ReadString();
+                Room.isReady = true;
+                Room.player = new Player();
+                Room.player.id = -2L;
+                Room.player.username = "bot [" + Room.roomId + "]";
+                Room.player.money = 0L;
+                Room.isStarted = false;
+                Room.time = 30;
+                Room.isPlayWithBot = true;
+
+                homeScr.nextScreen();
+                break;
+            case 14:
+                System.out.println("start room bot");
+                Room.data = message.ReadString();
+                Player.getMyPlayer().countGame = message.ReadInt();
+                GameScr.isChangeUI = true;
+                Room.isStarted = true;
+                Room.turnId = Player.getMyPlayer().id;
+                break;
+            case 15:
+                System.out.println("attack bot");
+                Room.time = 30;
+                Room.data = message.ReadString();
+                Room.turnId = Player.getMyPlayer().id;
+                Room.lastIndexSelected = -1;
+                GameScr.isChangeUI = true;
+                String dameWinBot = message.ReadString();
+                if (!dameWinBot.equals("0")) {
+                    String[] array = dameWinBot.split("\\-");
+
+                    Room.indexWins.clear();
+                    Room.dameWin = Integer.parseInt(array[0]);
+
+                    for (int i = 1; i < array.length; i++) {
+                        Room.indexWins.add(Integer.parseInt(array[i]));
+                    }
+
+                    if (dameWinBot.startsWith(GameScr.getDame(Room.hostId, Player.getMyPlayer().id) + "")) {
+                        Player.getMyPlayer().money = message.ReadLong();
+                        Player.getMyPlayer().countWin = message.ReadInt();
+                        GameScr.isChangeUI = true;
+                        Room.isMeWin = true;
+                    }
+                    else {
+                        Room.isMeWin = false;
+                    }
+
+                    Room.isEnd = true;
+                }
+                break;
+            case 16:
+                System.out.println("out room bot");
+                Room.reset();
                 break;
         }
     }

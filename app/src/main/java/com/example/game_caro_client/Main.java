@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.game_caro_client.hubs.GameHub;
+import com.example.game_caro_client.models.GameSound;
 import com.example.game_caro_client.screens.LoginScr;
+
+import javax.xml.transform.Source;
 
 public class Main extends AppCompatActivity {
 
@@ -18,13 +21,14 @@ public class Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_scr);
 
+        GameSound.gI().init(this);
+
         try {
             GameHub.gI().onCreate();
         }
         catch (Exception exception) {
             System.out.println("Disconnect to server");
         }
-
 
         Thread thread = new Thread() {
             @Override

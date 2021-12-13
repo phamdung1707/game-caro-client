@@ -1,5 +1,6 @@
 package com.example.game_caro_client.dialogs;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.game_caro_client.R;
 import com.example.game_caro_client.controllers.GameController;
+import com.example.game_caro_client.models.GameSound;
 import com.example.game_caro_client.models.Player;
 import com.example.game_caro_client.models.Room;
 import com.example.game_caro_client.services.GameService;
@@ -145,7 +147,12 @@ public class GameDialog {
             @Override
             public void onClick(View view) {
                 if (action == GameDialog.ACTION_EXIT_ROOM) {
-                    GameService.gI().exitRoom();
+                    if (Room.isPlayWithBot) {
+                        GameService.gI().exitRoomBot();
+                    }
+                    else {
+                        GameService.gI().exitRoom();
+                    }
                     GameController.gI().gameScr.backScreen();
                 }
                 else if (action == GameDialog.ACTION_SET_MONEY) {
@@ -364,6 +371,7 @@ public class GameDialog {
         dialog.show();
     }
 
+    @SuppressLint("SetTextI18n")
     public void startDlgSettingRoom(Context context) {
         Dialog dialog = new Dialog(context);
 
@@ -390,6 +398,7 @@ public class GameDialog {
         TextView txt_bets_money_setting_game_scr = dialog.findViewById(R.id.txt_bets_money_setting_game_scr);
         TextView txt_room_id_dialog_setting_game_scr = dialog.findViewById(R.id.txt_room_id_dialog_setting_game_scr);
         Button btn_ok_setting_game_scr = dialog.findViewById(R.id.btn_ok_setting_game_scr);
+        ImageButton btn_sound_setting_game_scr = dialog.findViewById(R.id.btn_sound_setting_game_scr);
 
         txt_room_id_dialog_setting_game_scr.setText(String.valueOf(Room.roomId));
         txt_bets_money_setting_game_scr.setText(Room.money + "$");
@@ -432,17 +441,21 @@ public class GameDialog {
                     Toast.makeText(context, "Trận đấu đang diễn ra!", Toast.LENGTH_SHORT).show();
                 }
                 else  {
-                    int money = Integer.parseInt(txt_bets_money_setting_game_scr.getText().toString().replace("$", "").trim());
-                    if (Room.money == money) {
-                        Toast.makeText(context, "Mức cược hiện tại đang là " + money + "$", Toast.LENGTH_SHORT).show();
+                    if (Room.isPlayWithBot) {
+                        Toast.makeText(context, "Không thể thay đổi khi đấu với máy", Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        GameDialog.money = money;
-                        startYesNoDlgWithAction(context, "Thay đổi mức tiền cược thành " + money + "$ ?", GameDialog.ACTION_SET_MONEY);
-                        dialog.cancel();
+                        int money = Integer.parseInt(txt_bets_money_setting_game_scr.getText().toString().replace("$", "").trim());
+                        if (Room.money == money) {
+                            Toast.makeText(context, "Mức cược hiện tại đang là " + money + "$", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            GameDialog.money = money;
+                            startYesNoDlgWithAction(context, "Thay đổi mức tiền cược thành " + money + "$ ?", GameDialog.ACTION_SET_MONEY);
+                            dialog.cancel();
+                        }
                     }
                 }
-
             }
         });
 
@@ -486,6 +499,26 @@ public class GameDialog {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        if (GameSound.isPlaySound) {
+            btn_sound_setting_game_scr.setImageResource(R.drawable.sound_off);
+        }
+        else {
+            btn_sound_setting_game_scr.setImageResource(R.drawable.sound_on);
+        }
+
+        btn_sound_setting_game_scr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GameSound.isPlaySound =! GameSound.isPlaySound;
+                if (GameSound.isPlaySound) {
+                    btn_sound_setting_game_scr.setImageResource(R.drawable.sound_off);
+                }
+                else {
+                    btn_sound_setting_game_scr.setImageResource(R.drawable.sound_on);
+                }
             }
         });
 

@@ -9,96 +9,134 @@
     android:orientation="vertical"
     tools:context=".screens.HomeScr">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/img_info"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="-4dp"/>
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_width="140dp"
-            android:layout_height="35dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="9dp"
-            android:layout_marginTop="10dp">
-
-            <TextView
-                android:id="@+id/txt_username_home_scr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:fontFamily="@font/linked"
-                android:text="Kerhoangde"
-                android:textColor="@color/white"
-                android:textSize="23sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="70dp"
-            android:layout_height="25dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="46dp"
-            android:layout_marginTop="45dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:fontFamily="@font/linked"
-                android:text="Lv.1+0.0%"
-                android:textColor="@color/white"
-                android:textSize="13dp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="130dp"
+            android:id="@+id/bgr_txt_chat_global"
+            android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="162dp"
-            android:layout_marginTop="12dp">
+            android:layout_alignParentBottom="true"
+            android:background="#FFE4C4">
 
             <TextView
-                android:id="@+id/txt_money_home_scr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:id="@+id/txt_chat_global_home_scr"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="0dp"
                 android:fontFamily="@font/linked"
-                android:text="1.000.000.000$"
-                android:textColor="@color/white"
-                android:textSize="15dp" />
+                android:text="kerhoangde: dũng đẹp trai nhất vũ trụ"
+                android:textColor="#FFFF00" />
         </RelativeLayout>
-
-
 
         <RelativeLayout
-            android:layout_width="110dp"
-            android:layout_height="13dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="166dp"
-            android:layout_marginTop="40dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/txt_rate_home_scr"
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:fontFamily="@font/linked"
-                android:text="1000 / 1000"
-                android:textColor="@color/white"
-                android:textSize="10dp" />
-        </RelativeLayout>
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="-4dp"
+                android:src="@drawable/img_info" />
 
-    </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="140dp"
+                android:layout_height="35dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/txt_username_home_scr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/linked"
+                    android:text="Kerhoangde"
+                    android:textColor="@color/white"
+                    android:textSize="23sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="70dp"
+                android:layout_height="25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="46dp"
+                android:layout_marginTop="45dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/linked"
+                    android:text="Lv.1+0.0%"
+                    android:textColor="@color/white"
+                    android:textSize="13dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="130dp"
+                android:layout_height="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="162dp"
+                android:layout_marginTop="12dp">
+
+                <TextView
+                    android:id="@+id/txt_money_home_scr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/linked"
+                    android:text="1.000.000.000$"
+                    android:textColor="@color/white"
+                    android:textSize="15dp" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="110dp"
+                android:layout_height="13dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="166dp"
+                android:layout_marginTop="40dp">
+
+                <TextView
+                    android:id="@+id/txt_rate_home_scr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/linked"
+                    android:text="1000 / 1000"
+                    android:textColor="@color/white"
+                    android:textSize="10dp" />
+            </RelativeLayout>
+
+            <ImageButton
+                android:id="@+id/btn_sound_setting_home_scr"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:fontFamily="@font/linked"
+                android:src="@drawable/sound_off"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -188,8 +226,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:src="@drawable/img_btn_send"
-            android:background="?attr/selectableItemBackgroundBorderless"/>
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/img_btn_send" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -202,17 +240,18 @@
             android:text="Gửi" />
 
         <EditText
+            android:id="@+id/edit_text_chat_global_home_scr"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_marginStart="2dp"
+            android:layout_marginBottom="1dp"
             android:layout_toEndOf="@+id/btn_send_chat_global"
             android:background="@drawable/boder_edittext_chat_global"
-            android:hint="chat thế giới"
+            android:fontFamily="@font/linked"
+            android:hint="chat thế giới (5000$)"
             android:textColorHint="#30f00000"
-            android:textSize="15dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="1dp"
-            android:fontFamily="@font/linked"/>
+            android:textSize="15dp" />
 
     </RelativeLayout>
 

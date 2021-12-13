@@ -170,6 +170,7 @@
         android:textSize="15dp" />
 
     <RelativeLayout
+        android:id="@+id/relativeLayout_map_game"
         android:layout_width="290dp"
         android:layout_height="290dp"
         android:layout_centerHorizontal="true"

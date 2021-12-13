@@ -7,6 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -20,6 +24,7 @@ import com.example.game_caro_client.R;
 import com.example.game_caro_client.controllers.GameController;
 import com.example.game_caro_client.dialogs.RegisterDialog;
 import com.example.game_caro_client.dialogs.GameDialog;
+import com.example.game_caro_client.models.GameSound;
 import com.example.game_caro_client.services.GameService;
 
 import java.util.regex.Pattern;

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.cardview.widget.CardView;
 
 import com.example.game_caro_client.R;
 import com.example.game_caro_client.models.ItemGame;
@@ -36,12 +37,21 @@ public class ItemGameAdapter extends ArrayAdapter<ItemGame> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.item_game, null);
+            if (Room.type == 1) {
+                convertView = layoutInflater.inflate(R.layout.item_game_scr, null);
+            }
+            else {
+                convertView = layoutInflater.inflate(R.layout.item_game, null);
+            }
         }
 
         if (itemGames.size() > 0) {
             ItemGame itemGame = itemGames.get(position);
             ImageView imageCustom = convertView.findViewById(R.id.img_item_game);
+
+            if (Room.type == 1) {
+                 imageCustom = convertView.findViewById(R.id.img_item_game_scr);
+            }
 
             if (itemGame.data == 0) {
                 imageCustom.setImageResource(R.drawable.img_bgr_item_game);

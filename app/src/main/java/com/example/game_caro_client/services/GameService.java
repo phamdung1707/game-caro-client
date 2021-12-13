@@ -183,4 +183,53 @@ public class GameService {
         }
     }
 
+    public void createRoomBot() {
+        Message message = new Message(13);
+        try {
+            message.write(Player.getMyPlayer().id.toString());
+            this.SendMessageToServer(message);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        } finally {
+            message = null;
+        }
+    }
+
+    public void startRoomBot() {
+        Message message = new Message(14);
+        try {
+            message.write(Room.roomId + "");
+            this.SendMessageToServer(message);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        } finally {
+            message = null;
+        }
+    }
+
+    public void attackBot() {
+        Message message = new Message(15);
+        try {
+            message.write(String.valueOf(Room.roomId));
+            message.write(Room.data);
+            Room.turnId = Room.player.id;
+            this.SendMessageToServer(message);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        } finally {
+            message = null;
+        }
+    }
+
+    public void exitRoomBot() {
+        Message message = new Message(16);
+        try {
+            message.write(String.valueOf(Room.roomId));
+            this.SendMessageToServer(message);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        } finally {
+            message = null;
+        }
+    }
 }

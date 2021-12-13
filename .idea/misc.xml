@@ -7,16 +7,22 @@
         <entry key="..\:/Project/Game Caro/GameCaroClient/app/src/main/res/layout/activity_login_scr.xml" value="0.20729166666666668" />
         <entry key="..\:/Project/Game Caro/GameCaroClient/app/src/main/res/layout/activity_main.xml" value="0.20729166666666668" />
         <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/drawable/bgr_dialog_ok.xml" value="0.28958333333333336" />
+        <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/drawable/bgr_gamescr.xml" value="0.29791666666666666" />
+        <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/drawable/bgr_relaytive_layout_game_scr.xml" value="0.29791666666666666" />
         <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/drawable/boder_bgr_dialog_select_mod.xml" value="0.39479166666666665" />
         <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/drawable/boder_edittext_chat_global.xml" value="0.5703125" />
         <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/drawable/border.xml" value="0.29375" />
         <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/drawable/border_button.xml" value="0.3828125" />
+        <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/drawable/ic_baseline_cloud_24.xml" value="0.29791666666666666" />
+        <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.29791666666666666" />
+        <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.29791666666666666" />
         <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/font/font.xml" value="0.396875" />
         <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/layout/activity_game_scr.xml" value="0.33" />
         <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/layout/activity_home_scr.xml" value="0.33" />
         <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/layout/activity_login_scr.xml" value="0.5" />
         <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/layout/activity_main.xml" value="0.24427083333333333" />
         <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/layout/activity_main_scr.xml" value="0.2911458333333333" />
+        <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/layout/bgr_relaytive_layout_game_scr.xml" value="0.28177083333333336" />
         <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/layout/dialog_chat_public.xml" value="0.36666666666666664" />
         <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/layout/dialog_join_room.xml" value="0.37864583333333335" />
         <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/layout/dialog_ok.xml" value="0.2625" />
@@ -25,6 +31,7 @@
         <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/layout/dialog_setting_game_scr.xml" value="0.3921875" />
         <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/layout/dialog_yesno.xml" value="0.3614583333333333" />
         <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/layout/item_game.xml" value="0.3828125" />
+        <entry key="..\:/Project/Game Caro/game-caro-client/app/src/main/res/layout/item_game_scr.xml" value="0.28177083333333336" />
         <entry key="..\:/Users/Admin/OneDrive - vnu.edu.vn/Desktop/game-caro-client/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2703125" />
         <entry key="..\:/Users/Admin/OneDrive - vnu.edu.vn/Desktop/game-caro-client/app/src/main/res/drawable/bgr_dialog_ok.xml" value="0.2703125" />
         <entry key="..\:/Users/Admin/OneDrive - vnu.edu.vn/Desktop/game-caro-client/app/src/main/res/drawable/boder.xml" value="0.2703125" />

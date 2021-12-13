@@ -19,6 +19,7 @@ public class Room {
     public static List<Integer> indexWins = new ArrayList<>();
     public static boolean isMeWin;
     public static int dameWin;
+    public static boolean isPlayWithBot;
 
     public static void reset() {
         isStarted = false;
@@ -27,6 +28,9 @@ public class Room {
         lastIndexSelected = -1;
         isEnd = false;
         indexWins.clear();
+        if (Room.isPlayWithBot) {
+            isReady = true;
+        }
     }
 
     public static void resetData() {

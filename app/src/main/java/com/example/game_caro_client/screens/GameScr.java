@@ -6,8 +6,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -18,11 +20,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.game_caro_client.Main;
 import com.example.game_caro_client.R;
 import com.example.game_caro_client.adapters.ItemGameAdapter;
 import com.example.game_caro_client.common.PlayerUtils;
 import com.example.game_caro_client.controllers.GameController;
 import com.example.game_caro_client.dialogs.GameDialog;
+import com.example.game_caro_client.models.GameSound;
 import com.example.game_caro_client.models.ItemGame;
 import com.example.game_caro_client.models.Player;
 import com.example.game_caro_client.models.Room;
@@ -85,6 +89,8 @@ public class GameScr extends AppCompatActivity {
 
     RelativeLayout bgr_txt_chat_public;
 
+    RelativeLayout relativeLayout_map_game;
+
     TextView txt_chat_public_game_scr;
 
     public static long lastTimeShowTextChat;
@@ -92,6 +98,12 @@ public class GameScr extends AppCompatActivity {
     public static int gameTicks;
 
     public static int timeEnd;
+
+    Thread gameLoop;
+
+    public static boolean isGameLoop;
+
+    MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,11 +126,39 @@ public class GameScr extends AppCompatActivity {
         txt_money_game_scr_player_one = (TextView) findViewById(R.id.txt_money_game_scr_player_one);
         txt_money_game_scr_player_two = (TextView) findViewById(R.id.txt_money_game_scr_player_two);
         bgr_txt_chat_public = (RelativeLayout) findViewById(R.id.bgr_txt_chat_public);
+        relativeLayout_map_game = (RelativeLayout) findViewById(R.id.relativeLayout_map_game);
         txt_chat_public_game_scr = (TextView) findViewById(R.id.txt_chat_public_game_scr);
 
-        while (itemGames.size() < 9) {
-            itemGames.add(new ItemGame());
+        if (Room.type == 1) {
+            relativeLayout_map_game.setMinimumWidth(500);
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) relativeLayout_map_game.getLayoutParams();
+            params.width = convertDpToPixels(360, context);
+            params.height = convertDpToPixels(292, context);
+            relativeLayout_map_game.setLayoutParams(params);
+
+            grid_game.setNumColumns(10);
+
+            while (itemGames.size() < 80) {
+                itemGames.add(new ItemGame());
+            }
         }
+        else {
+            while (itemGames.size() < 9) {
+                itemGames.add(new ItemGame());
+            }
+        }
+
+        mediaPlayer = MediaPlayer.create(GameScr.this, R.raw.music_urf);
+        mediaPlayer.setVolume(0.3f, 0.3f);
+        mediaPlayer.setLooping(true);
+
+        mediaPlayer.start();
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+            };
+        });
+
         itemGameAdapter = new ItemGameAdapter(this, 0, itemGames);
 
         grid_game.setAdapter(itemGameAdapter);
@@ -127,14 +167,23 @@ public class GameScr extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (Room.isStarted && !Room.isEnd) {
+
+                    GameSound.gI().click();
+
                     if (Room.turnId.equals(Player.getMyPlayer().id)) {
                         int dame = getDame(Room.hostId, Room.turnId);
-                        if (Room.type == 0) {
-                            attackByTypeZero(dame, i);
+                        if (Room.isPlayWithBot) {
+                            attackBot(dame, i);
                         }
                         else {
-                            attackByTypeOne();
+                            if (Room.type == 0) {
+                                attackByTypeZero(dame, i);
+                            }
+                            else {
+                                attackByTypeOne(dame, i);
+                            }
                         }
+
                     }
                     else {
                         Toast.makeText(context, "Vui lòng chờ đến lượt!", Toast.LENGTH_SHORT).show();
@@ -172,7 +221,13 @@ public class GameScr extends AppCompatActivity {
             public void onClick(View view) {
                 if (Room.hostId.equals(Player.getMyPlayer().id)) {
                     Room.isStarted = true;
-                    GameService.gI().startRoom();
+                    if (Room.isPlayWithBot) {
+                        GameService.gI().startRoomBot();
+                    }
+                    else {
+                        GameService.gI().startRoom();
+                    }
+
                 }
                 else {
                     if (Player.getMyPlayer().money < Room.money) {
@@ -187,10 +242,12 @@ public class GameScr extends AppCompatActivity {
             }
         });
 
-        Thread thread = new Thread() {
+        isGameLoop = true;
+
+        gameLoop = new Thread() {
             @Override
             public void run() {
-                for (;;) {
+                while (isGameLoop) {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -205,7 +262,7 @@ public class GameScr extends AppCompatActivity {
                 }
             }
         };
-        new Thread(thread).start();
+        new Thread(gameLoop).start();
     }
 
     public void attackByTypeZero(int dame, int index) {
@@ -250,8 +307,85 @@ public class GameScr extends AppCompatActivity {
         isChangeUI = true;
     }
 
-    public void attackByTypeOne() {
+    public void attackByTypeOne(int dame, int index) {
+        String dataCheck = Room.data.substring(index, index + 1);
 
+        if (!dataCheck.equals("0") && !dataCheck.equals(String.valueOf(dame))) {
+            Toast.makeText(context, "Đối thủ đã chọn ô này!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Room.lastIndexSelected = -1;
+        attack(index, dame);
+        GameService.gI().attack();
+
+        isChangeUI = true;
+    }
+
+    public void attackBot(int dame, int index) {
+        String dataCheck = Room.data.substring(index, index + 1);
+
+        if (!dataCheck.equals("0") && !dataCheck.equals(String.valueOf(dame))) {
+            Toast.makeText(context, "Đối thủ đã chọn ô này!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Room.lastIndexSelected = -1;
+        attack(index, dame);
+        GameService.gI().attackBot();
+
+        isChangeUI = true;
+    }
+
+    public void attackRandom(int dame, boolean isPlayWithBot, boolean isMapBig) {
+        ArrayList<ItemGame> dataRoom = new ArrayList<>(itemGames);
+        Room.lastIndexSelected = -1;
+
+        if (isMapBig || getCountDame(dame) < 3) {
+            boolean isSelected = true;
+
+            StringBuilder data = new StringBuilder();
+            for (int i = 0; i < dataRoom.size(); i++) {
+                if (isSelected && dataRoom.get(i).data == 0) {
+                    isSelected = false;
+                    dataRoom.get(i).data = dame;
+                }
+                data.append(dataRoom.get(i).data);
+            }
+
+            Room.data = data.toString();
+
+            if (isPlayWithBot) {
+                GameService.gI().attackBot();
+            }
+            else {
+                GameService.gI().attack();
+            }
+        }
+        else {
+            boolean isSelected = true;
+            boolean isChanged = true;
+            StringBuilder data = new StringBuilder();
+            for (int i = 0; i < dataRoom.size(); i++) {
+                boolean isStopChange = false;
+                if (isChanged && dataRoom.get(i).data == dame) {
+                    isChanged = false;
+                    isStopChange = true;
+                    dataRoom.get(i).data = 0;
+                }
+
+                if (isSelected && dataRoom.get(i).data == 0 && !isStopChange) {
+                    isSelected = false;
+                    dataRoom.get(i).data = dame;
+                }
+                data.append(dataRoom.get(i).data);
+            }
+
+            Room.data = data.toString();
+
+            GameService.gI().attack();
+        }
+        isChangeUI = true;
     }
 
     public void attack(int indexAttack, int dame) {
@@ -327,9 +461,16 @@ public class GameScr extends AppCompatActivity {
                     timeEnd = 0;
 
                     if (Room.isMeWin) {
-                        startOkDlg("Bạn đã thắng và nhận được " + ((int)(Room.money * 1.8)) + "$");
+                        long moneyShow = Room.money;
+
+                        if (!Room.isPlayWithBot) {
+                            moneyShow = (long)(Room.money * 1.8);
+                        }
+                        GameSound.gI().win();
+                        startOkDlg("Bạn đã thắng và nhận được " + moneyShow + "$");
                     }
                     else {
+                        GameSound.gI().win();
                         startOkDlg("Bạn đã thua!");
                     }
                 }
@@ -409,6 +550,7 @@ public class GameScr extends AppCompatActivity {
 
                 if (Room.time <= 0) {
                     Room.time = 30;
+                    attackRandom(getDame(Room.hostId, Room.turnId), Room.isPlayWithBot, Room.type == 1);
                 }
             }
         }
@@ -426,6 +568,8 @@ public class GameScr extends AppCompatActivity {
             isShowDialogOkWithAction = false;
             GameDialog.gI().startOkDlgWithActionBackScreen(context, infoDialogOkWithAction);
         }
+
+        updateSound();
     }
 
     public void updateUI() {
@@ -434,8 +578,20 @@ public class GameScr extends AppCompatActivity {
         paintChat();
     }
 
+    public void updateSound() {
+        if (GameSound.isPlaySound) {
+            if (!mediaPlayer.isPlaying()) {
+                mediaPlayer.start();
+            }
+        }
+        else if (mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
+        }
+    }
+
     public void backScreen() {
-        //gameLoop.destroy();
+        isGameLoop = false;
+        mediaPlayer.stop();
         startActivity(new Intent(this, HomeScr.class));
         finish();
     }
@@ -489,5 +645,11 @@ public class GameScr extends AppCompatActivity {
         params.setMarginStart(xChat);
         txt_chat_public_game_scr.setText(textChat.content);
         txt_chat_public_game_scr.setLayoutParams(params);
+    }
+
+    public static int convertDpToPixels(float dp, Context context) {
+        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                context.getResources().getDisplayMetrics());
+        return px;
     }
 }
