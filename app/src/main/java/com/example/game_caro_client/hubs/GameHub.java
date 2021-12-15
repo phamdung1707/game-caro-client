@@ -7,7 +7,7 @@ import com.microsoft.signalr.HubConnectionBuilder;
 public class GameHub {
     public HubConnection hubConnection;
     private final String URL_SERVER = "https://game.dungpham.com.vn/game";
-    private final String URL_LOCAL_HOST = "https://b823-2405-4803-fc36-3c70-8823-4c34-3acc-5f9c.ngrok.io/game";
+    private final String URL_LOCAL_HOST = "https://2e49-2405-4803-fde0-8830-1472-1c18-fc88-9e21.ngrok.io/game";
     public static GameHub instance;
 
     public static GameHub gI() {

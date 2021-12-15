@@ -45,7 +45,7 @@ public class LoginScr extends AppCompatActivity {
         setContentView(R.layout.activity_login_scr);
 
         GameController.gI().loginScr = this;
-
+        GameController.levelScr = 1;
         context = this;
 
         GameController.gI().context = this.context;

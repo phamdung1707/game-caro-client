@@ -113,6 +113,7 @@ public class GameScr extends AppCompatActivity {
         this.context = this;
 
         GameController.gI().gameScr = this;
+        GameController.levelScr = 3;
 
         grid_game = (GridView) findViewById(R.id.grid_game);
         btn_chat_public = (ImageButton) findViewById(R.id.btn_chat_public);
@@ -470,7 +471,7 @@ public class GameScr extends AppCompatActivity {
                         startOkDlg("Bạn đã thắng và nhận được " + moneyShow + "$");
                     }
                     else {
-                        GameSound.gI().win();
+                        GameSound.gI().lose();
                         startOkDlg("Bạn đã thua!");
                     }
                 }

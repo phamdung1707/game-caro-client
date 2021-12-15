@@ -81,7 +81,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/img_card"
+                android:src="@drawable/img3x3"
                 android:scaleType="centerCrop"/>
             <Button
                 android:id="@+id/btn_select_mod_type_0"
@@ -105,7 +105,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/img_card"
+                android:src="@drawable/img5x2"
                 android:scaleType="centerCrop"/>
             <Button
                 android:id="@+id/btn_select_mod_type_1"

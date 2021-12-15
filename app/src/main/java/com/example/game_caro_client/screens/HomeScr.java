@@ -84,6 +84,7 @@ public class HomeScr extends AppCompatActivity {
         context = this;
 
         GameController.gI().homeScr = this;
+        GameController.levelScr = 2;
 
         btn_create_room = (Button) findViewById(R.id.btn_create_room);
         btn_join_room = (Button) findViewById(R.id.btn_join_room);

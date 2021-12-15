@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.example.game_caro_client.controllers.GameController;
 import com.example.game_caro_client.hubs.GameHub;
 import com.example.game_caro_client.models.GameSound;
 import com.example.game_caro_client.screens.LoginScr;
@@ -22,6 +23,7 @@ public class Main extends AppCompatActivity {
         setContentView(R.layout.activity_main_scr);
 
         GameSound.gI().init(this);
+        GameController.levelScr = 0;
 
         try {
             GameHub.gI().onCreate();

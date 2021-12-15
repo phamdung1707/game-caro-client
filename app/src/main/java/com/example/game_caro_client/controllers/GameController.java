@@ -23,6 +23,8 @@ public class GameController {
 
     public Context context;
 
+    public static int levelScr;
+
     Handler handler = new Handler();
 
     public static GameController gI() {
@@ -216,8 +218,12 @@ public class GameController {
                 break;
             case 12:
                 System.out.println("chat global");
-                GameScr.textChats.add(new TextChat(message.ReadString(), true));
-                HomeScr.textChatGlobals.add(new TextChat(message.ReadString(), true));
+                if (levelScr == 3) {
+                     GameScr.textChats.add(new TextChat(message.ReadString(), true));
+                }
+                if (levelScr == 2) {
+                    HomeScr.textChatGlobals.add(new TextChat(message.ReadString(), true));
+                }
                 break;
             case 13:
                 System.out.println("create room bot");
