@@ -179,6 +179,7 @@ public class GameController {
                 Room.data = message.ReadString();
                 Room.turnId = message.ReadLong();
                 Room.lastIndexSelected = -1;
+                Room.time = 30;
                 GameScr.isChangeUI = true;
                 String dameWin = message.ReadString();
                 if (!dameWin.equals("0")) {
